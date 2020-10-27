@@ -5,8 +5,9 @@ import java.awt.event.*;
 import java.util.*;
 class record
 {
-	String name,marks,subject;
-	public record(String marks,String name,String subject)
+	int marks;
+	String name,subject;
+	public record(int marks,String name,String subject)
 	{
 		this.marks=marks;
 		this.name=name;
@@ -20,18 +21,16 @@ JLabel label1,label2,label3;
 JButton add,sort;
 JTextField name,marks,subject;
 int size=0;
-JTable jt;
 	public recordmanager() {
 		rec=new record[1000];
-		//jt=new JTable({"Marks","Name","Subject"},rec);
 		frame=new JFrame("new frame");
 		add=new JButton("Add");
 		sort=new JButton("Sort");
-		name=new JTextField();
-		marks=new JTextField();
-		subject=new JTextField();
-		name.setBounds(600,100,150,50);
-		marks.setBounds(400,100,150,50);
+		name=new JTextField(" ");
+		marks=new JTextField(" ");
+		subject=new JTextField(" ");
+		name.setBounds(400,100,150,50);
+		marks.setBounds(600,100,150,50);
 		subject.setBounds(800,100,150,50);
 		add.setBounds(1050,100,100,40);
 		sort.setBounds(600,250,150,40);
@@ -59,20 +58,20 @@ JTable jt;
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				if(marks.getText().equals(" "))
+				if(label1.getText().equals(" "))
 				{
 					System.out.println("Please enter the name");
 				}
-				else if(name.getText().equals(" "))
+				else if(label2.getText().equals(" "))
 				{
 					System.out.println("Please enter the subject");
 				}
-				else if(subject.getText().equals(" "))
+				else if(label3.getText().equals(" "))
 				{
 					System.out.println("Please enter the marks");
 				}
 				else					
-				{rec[size++]=new record(marks.getText(),name.getText(),subject.getText());
+				{rec[size++]=new record(Integer.valueOf(label1.getText()),label2.getText(),label3.getText());
 				System.out.println(rec[size-1]);}
 				}
 		});

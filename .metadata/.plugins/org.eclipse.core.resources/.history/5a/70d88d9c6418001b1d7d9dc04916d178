@@ -1,0 +1,49 @@
+package recordmanager.java;
+import javax.swing.*;   
+import java.awt.Font;
+public class recordmanager {
+JFrame frame;
+JLabel label1,label2,label3;
+JButton add,sort;
+JTextField name,marks,subject;
+	public recordmanager() {
+		frame=new JFrame("new frame");
+		add=new JButton("Add");
+		sort=new JButton("Sort");
+		name=new JTextField();
+		marks=new JTextField();
+		subject=new JTextField();
+		name.setBounds(400,20,150,200);
+		marks.setBounds(600,20,150,200);
+		subject.setBounds(800,20,150,200);
+		add.setBounds(900,20,100,200);
+		sort.setBounds(500,60,100,100);
+		label1=new JLabel("Name");
+		label2=new JLabel("RollNo");
+		label3=new JLabel("Subject");
+		label1.setBounds(400,100,100,200);
+		label2.setBounds(550,100,100,200);
+		label3.setBounds(700,100,100,200);
+		 label1.setFont(new Font("Verdana", Font.PLAIN, 18));
+		 label2.setFont(new Font("Verdana", Font.PLAIN, 18));
+		 label3.setFont(new Font("Verdana", Font.PLAIN, 18));
+		 
+		//frame.add(button);
+		frame.add(label1);
+		frame.add(label2);
+		frame.add(label3);
+		frame.add(name);
+		frame.add(marks);
+		frame.add(subject);
+		frame.add(add);
+		frame.add(sort);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		frame.setUndecorated(true);
+		frame.setLayout(null);
+		frame.setVisible(true);
+	}
+public static void main(String args[])
+{
+	recordmanager start=new recordmanager();
+}
+}

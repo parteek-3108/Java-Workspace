@@ -5,8 +5,9 @@ import java.awt.event.*;
 import java.util.*;
 class record
 {
-	String name,marks,subject;
-	public record(String marks,String name,String subject)
+	int marks;
+	String name,subject;
+	public record(int marks,String name,String subject)
 	{
 		this.marks=marks;
 		this.name=name;
@@ -20,10 +21,8 @@ JLabel label1,label2,label3;
 JButton add,sort;
 JTextField name,marks,subject;
 int size=0;
-JTable jt;
 	public recordmanager() {
 		rec=new record[1000];
-		//jt=new JTable({"Marks","Name","Subject"},rec);
 		frame=new JFrame("new frame");
 		add=new JButton("Add");
 		sort=new JButton("Sort");
@@ -72,7 +71,7 @@ JTable jt;
 					System.out.println("Please enter the marks");
 				}
 				else					
-				{rec[size++]=new record(marks.getText(),name.getText(),subject.getText());
+				{rec[size++]=new record(Integer.valueOf(marks.getText()),name.getText(),subject.getText());
 				System.out.println(rec[size-1]);}
 				}
 		});

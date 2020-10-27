@@ -1,0 +1,9 @@
+package recordmanager.java;
+
+public class recordmanager {
+
+	public recordmanager() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

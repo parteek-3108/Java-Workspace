@@ -14,7 +14,7 @@ import java.util.regex.*;
 //		this.name=name;
 //		this.subject=subject;
 //	}
-public class recordmanager implements MouseListener{
+public class recordmanager {
 	private static boolean  digitchecker(String s)
 	{
 		String regex="[0-9]+";
@@ -99,33 +99,29 @@ JTable jt=new JTable();
 				System.out.println(rec.length);}
 				}
 		});
-		label1.addMouseListener(this);
-		label2.addMouseListener(this);
-		label3.addMouseListener(this);
+		label1.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+		         label1.setText("Mouse Clicked: ("+e.getX()+", "+e.getY() +")");
+		      }
+			public void mouseExited(MouseEvent e) {
+		         label1.setText("Mouse Clicked: ("+e.getX()+", "+e.getY() +")");
+		      }
+			public void mousePressed(MouseEvent e) {
+		         label1.setText("Mouse Clicked: ("+e.getX()+", "+e.getY() +")");
+		      }
+			public void mouseEntered(MouseEvent e) {
+		         label1.setText("Mouse Clicked: ("+e.getX()+", "+e.getY() +")");
+		      }
+			public void mouseReleased(MouseEvent e) {
+		         label1.setText("Mouse Clicked: ("+e.getX()+", "+e.getY() +")");
+		      }
+		});
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		frame.setUndecorated(true);
 		frame.setLayout(null);
 		frame.setVisible(true);
 	}
-	public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getX()+", "+e.getY() +" , "+e.getSource());
-        if(e.getSource()==label1)
-        	Arrays.sort(rec,(a,b)->(a[0].compareTo(b[0])));
-        else if(e.getSource()==label2)
-        	Arrays.sort(rec,(a,b)->(a[1].compareTo(b[1])));     	
-        else
-        	Arrays.sort(rec,(a,b)->(a[2].compareTo(b[2]))); 
-        jt.setModel(new DefaultTableModel(rec,col));
-     }
-	public void mousePressed(MouseEvent e) {
-    }
-    public void mouseReleased(MouseEvent e) {
-    }
-    public void mouseEntered(MouseEvent e) {
-    }
-    public void mouseExited(MouseEvent e) {
-    }
 public static void main(String args[])
 {
 	recordmanager start=new recordmanager();

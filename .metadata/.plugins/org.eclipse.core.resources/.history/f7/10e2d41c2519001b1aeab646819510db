@@ -111,12 +111,7 @@ JTable jt=new JTable();
 	public void mouseClicked(MouseEvent e) {
         System.out.println(e.getX()+", "+e.getY() +" , "+e.getSource());
         if(e.getSource()==label1)
-        	Arrays.sort(rec,(a,b)->(a[0].compareTo(b[0])));
-        else if(e.getSource()==label2)
-        	Arrays.sort(rec,(a,b)->(a[1].compareTo(b[1])));     	
-        else
-        	Arrays.sort(rec,(a,b)->(a[2].compareTo(b[2]))); 
-        jt.setModel(new DefaultTableModel(rec,col));
+        	System.out.println(true);
      }
 	public void mousePressed(MouseEvent e) {
     }

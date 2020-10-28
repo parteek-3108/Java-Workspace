@@ -109,23 +109,8 @@ JTable jt=new JTable();
 		frame.setVisible(true);
 	}
 	public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getX()+", "+e.getY() +" , "+e.getSource());
-        if(e.getSource()==label1)
-        	Arrays.sort(rec,(a,b)->(a[0].compareTo(b[0])));
-        else if(e.getSource()==label2)
-        	Arrays.sort(rec,(a,b)->(a[1].compareTo(b[1])));     	
-        else
-        	Arrays.sort(rec,(a,b)->(a[2].compareTo(b[2]))); 
-        jt.setModel(new DefaultTableModel(rec,col));
+        label1.setText("Mouse Clicked: ("+e.getX()+", "+e.getY() +")");
      }
-	public void mousePressed(MouseEvent e) {
-    }
-    public void mouseReleased(MouseEvent e) {
-    }
-    public void mouseEntered(MouseEvent e) {
-    }
-    public void mouseExited(MouseEvent e) {
-    }
 public static void main(String args[])
 {
 	recordmanager start=new recordmanager();

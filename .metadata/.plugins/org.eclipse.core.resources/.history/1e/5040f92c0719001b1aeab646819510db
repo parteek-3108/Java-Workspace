@@ -17,7 +17,7 @@ import java.util.regex.*;
 public class recordmanager {
 	private static boolean  digitchecker(String s)
 	{
-		String regex="[0-9]+";
+		String regex="[0-9]";
 		Pattern p=Pattern.compile(regex);
 		if(s==null)
 			return false;
@@ -51,7 +51,7 @@ JTable jt=new JTable();
 		sort.setBounds(600,250,150,40);
 		JSeparator sep=new JSeparator();
 		label1=new JLabel("Name");
-		label2=new JLabel("Marks");
+		label2=new JLabel("RollNo");
 		label3=new JLabel("Subject");
 		label1.setBounds(600,300,100,200);
 		label2.setBounds(850,300,100,200);

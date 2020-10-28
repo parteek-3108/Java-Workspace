@@ -4,7 +4,6 @@ import javax.swing.table.*;
 import java.awt.Font;
 import java.awt.event.*;
 import java.util.*;
-import java.util.regex.*;
 //class record
 //{
 //	String name,marks,subject;
@@ -15,16 +14,6 @@ import java.util.regex.*;
 //		this.subject=subject;
 //	}
 public class recordmanager {
-	private static boolean  digitchecker(String s)
-	{
-		String regex="[0-9]+";
-		Pattern p=Pattern.compile(regex);
-		if(s==null)
-			return false;
-		Matcher m=p.matcher(s);
-		
-		return m.matches();
-	}
 JFrame frame;
 String rec[][];
 JLabel label1,label2,label3;
@@ -49,14 +38,13 @@ JTable jt=new JTable();
 		subject.setBounds(800,100,150,50);
 		add.setBounds(1050,100,100,40);
 		sort.setBounds(600,250,150,40);
-		JSeparator sep=new JSeparator();
 		label1=new JLabel("Name");
-		label2=new JLabel("Marks");
+		label2=new JLabel("RollNo");
 		label3=new JLabel("Subject");
 		label1.setBounds(600,300,100,200);
 		label2.setBounds(850,300,100,200);
 		label3.setBounds(1100,300,100,200);	
-		jt.setBounds(550,420,700,500);
+		jt.setBounds(550,700,700,500);
 		jt.setFont(new Font("Verdana", Font.PLAIN, 18));
 		add.setFont(new Font("Verdana", Font.PLAIN, 18));
 		sort.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -65,7 +53,7 @@ JTable jt=new JTable();
 		 label3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		//frame.add(button);
 		 jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		 
+		 frame.add(jt);
 		frame.add(label1);
 		frame.add(label2);
 		frame.add(label3);
@@ -74,14 +62,12 @@ JTable jt=new JTable();
 		frame.add(subject);
 		frame.add(add);
 		frame.add(sort);
-		frame.add(sep);
-		frame.add(jt);
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				if(marks.getText().equals(" ") || !digitchecker(marks.getText()))
+				if(marks.getText().equals(" "))
 				{
-					System.out.println("Input Invalid");
+					System.out.println("Please enter the name");
 				}
 				else if(name.getText().equals(" "))
 				{

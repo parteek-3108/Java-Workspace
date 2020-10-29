@@ -1,6 +1,8 @@
 package recordmanager.java;
 import javax.swing.*;
-import javax.swing.table.*;   
+import javax.swing.table.*;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
 import java.util.*;
@@ -27,7 +29,7 @@ public class recordmanager implements MouseListener{
 	}
 JFrame frame;
 String rec[][];
-JLabel label1,label2,label3;
+JLabel label1,label2,label3,label1warning,label2warning,label3warning;
 JButton add,sort;
 JTextField name,marks,subject;
 String col[]=new String[] {"Marks","Name","Subject"};
@@ -41,9 +43,9 @@ JTable jt=new JTable();
 		frame=new JFrame("new frame");
 		add=new JButton("Add");
 		sort=new JButton("Sort");
-		name=new JTextField(" ");
-		marks=new JTextField(" ");
-		subject=new JTextField(" ");
+		name=new JTextField();
+		marks=new JTextField();
+		subject=new JTextField();
 		name.setBounds(600,100,150,50);
 		marks.setBounds(400,100,150,50);
 		subject.setBounds(800,100,150,50);
@@ -53,6 +55,13 @@ JTable jt=new JTable();
 		label1=new JLabel("Name");
 		label2=new JLabel("Marks");
 		label3=new JLabel("Subject");
+		label1warning=new JLabel("Invalid input");
+		label2warning=new JLabel("Invalid input");
+		label3warning=new JLabel("Invalid input");
+		label1warning.setBounds(400,130,400,100);
+		label2warning.setBounds(600,130,400,100);
+		label3warning.setBounds(800,130,400,100);
+		
 		label1.setBounds(600,300,100,200);
 		label2.setBounds(850,300,100,200);
 		label3.setBounds(1100,300,100,200);	
@@ -64,10 +73,18 @@ JTable jt=new JTable();
 		 label2.setFont(new Font("Verdana", Font.PLAIN, 18));
 		 label3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		 jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		 
+		 label1warning.setForeground(Color.RED);
+			label2warning.setForeground(Color.RED);
+			label3warning.setForeground(Color.RED);
+		 label1warning.setVisible(false);
+		 label2warning.setVisible(false);
+		 label3warning.setVisible(false);
 		frame.add(label1);
 		frame.add(label2);
 		frame.add(label3);
+		frame.add(label1warning);
+		frame.add(label2warning);
+		frame.add(label3warning);
 		frame.add(name);
 		frame.add(marks);
 		frame.add(subject);
@@ -75,22 +92,83 @@ JTable jt=new JTable();
 		frame.add(sort);
 		frame.add(sep);
 		frame.add(jt);
+//		marks.addActionListener(new ActionListener()
+//		{
+//	public void actionPerformed(ActionEvent e)
+//	{
+//		System.out.println("entered");
+//		label1warning.setForeground(Color.GREEN);
+//		label1warning.setText("Checking...");
+//	}
+//		});
+		marks.addFocusListener(new FocusListener() {
+
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		    	System.out.println("entered");
+				label1warning.setForeground(Color.GREEN);
+				label1warning.setText("Checking...");
+		    }
+		    public void focusLost(FocusEvent e)
+		    {
+		    	
+		    }
+
+		});
+		name.addFocusListener(new FocusListener() {
+
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		    	System.out.println("entered");
+				label2warning.setForeground(Color.GREEN);
+				label2warning.setText("Checking...");
+		    }
+		    public void focusLost(FocusEvent e)
+		    {
+		    	
+		    }
+
+		});
+		subject.addFocusListener(new FocusListener() {
+
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		    	System.out.println("entered");
+				label3warning.setForeground(Color.GREEN);
+				label3warning.setText("Checking...");
+		    }
+		    public void focusLost(FocusEvent e)
+		    {
+		    	
+		    }
+
+		});
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				if(marks.getText().equals(" ") || !digitchecker(marks.getText()))
+				int t=3;
+				if(marks.getText()==null || !digitchecker(marks.getText()))
 				{
-					System.out.println("Input Invalid");
+					label1warning.setForeground(Color.RED);
+					label1warning.setVisible(true);
+					label1warning.setText("Invalid Input");
+					t--;
 				}
-				else if(name.getText().equals(" "))
+				 if(name.getText()==null || digitchecker(name.getText()))
 				{
-					System.out.println("Please enter the subject");
+					label2warning.setForeground(Color.RED);
+					label2warning.setVisible(true);
+					label2warning.setText("Invalid Input");
+					t--;
 				}
-				else if(subject.getText().equals(" "))
+				 if(subject.getText()==null || digitchecker(subject.getText()))
 				{
-					System.out.println("Please enter the marks");
+					label3warning.setForeground(Color.RED);
+					label3warning.setVisible(true);
+					label3warning.setText("Invalid Input");
+					t--;
 				}
-				else					
+				if(t==3)					
 				{rec[size][0]=marks.getText();
 				rec[size][1]=name.getText();
 				rec[size][2]=subject.getText();
@@ -99,6 +177,14 @@ JTable jt=new JTable();
 				System.out.println(rec.length);}
 				}
 		});
+		sort.addActionListener(new ActionListener()
+				{
+			public void actionPerformed(ActionEvent e)
+			{
+				Arrays.sort(rec,(a,b)->(a[0].compareTo(b[0])==0?(a[1].compareTo(b[1])==0?a[2].compareTo(b[2]):a[1].compareTo(b[1])):a[0].compareTo(b[0])));
+				jt.setModel(new DefaultTableModel(rec,col));
+			}
+				});
 		label1.addMouseListener(this);
 		label2.addMouseListener(this);
 		label3.addMouseListener(this);

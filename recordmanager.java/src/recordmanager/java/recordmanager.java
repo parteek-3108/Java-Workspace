@@ -1,21 +1,16 @@
 package recordmanager.java;
 import javax.swing.*;
 import javax.swing.table.*;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import java.util.regex.*;
-//class record
-//{
-//	String name,marks,subject;
-//	public record(String marks,String name,String subject)
-//	{
-//		this.marks=marks;
-//		this.name=name;
-//		this.subject=subject;
-//	}
 public class recordmanager implements MouseListener{
 	private static boolean  digitchecker(String s)
 	{
@@ -33,13 +28,25 @@ JLabel label1,label2,label3,label1warning,label2warning,label3warning;
 JButton add,sort;
 JTextField name,marks,subject;
 String col[]=new String[] {"Marks","Name","Subject"};
+Connection con;
+Statement st;
+PreparedStatement ps;
 int size=0;
+
 //DefaultTableModel model=new DefaultTableModel();
 JTable jt=new JTable();
 	public recordmanager() {
+		con = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","DEMODBJAVA","parteek@1234");
+			st = con.createStatement();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 		rec=new String[1000][3];        
- jt=new JTable(); 
-
+		jt=new JTable(); 
 		frame=new JFrame("new frame");
 		add=new JButton("Add");
 		sort=new JButton("Sort");
@@ -106,8 +113,9 @@ JTable jt=new JTable();
 		    @Override
 		    public void focusGained(FocusEvent e) {
 		    	System.out.println("entered");
-				label1warning.setForeground(Color.GREEN);
-				label1warning.setText("Checking...");
+//				label1warning.setForeground(Color.GREEN);
+//				label1warning.setText("Checking...");
+		    	label1warning.setVisible(false);
 		    }
 		    public void focusLost(FocusEvent e)
 		    {
@@ -120,8 +128,9 @@ JTable jt=new JTable();
 		    @Override
 		    public void focusGained(FocusEvent e) {
 		    	System.out.println("entered");
-				label2warning.setForeground(Color.GREEN);
-				label2warning.setText("Checking...");
+//				label1warning.setForeground(Color.GREEN);
+//				label1warning.setText("Checking...");
+		    	label2warning.setVisible(false);
 		    }
 		    public void focusLost(FocusEvent e)
 		    {
@@ -134,8 +143,9 @@ JTable jt=new JTable();
 		    @Override
 		    public void focusGained(FocusEvent e) {
 		    	System.out.println("entered");
-				label3warning.setForeground(Color.GREEN);
-				label3warning.setText("Checking...");
+//				label1warning.setForeground(Color.GREEN);
+//				label1warning.setText("Checking...");
+		    	label3warning.setVisible(false);
 		    }
 		    public void focusLost(FocusEvent e)
 		    {
@@ -151,28 +161,42 @@ JTable jt=new JTable();
 				{
 					label1warning.setForeground(Color.RED);
 					label1warning.setVisible(true);
-					label1warning.setText("Invalid Input");
+//					label1warning.setText("Invalid Input");
 					t--;
 				}
 				 if(name.getText()==null || digitchecker(name.getText()))
 				{
 					label2warning.setForeground(Color.RED);
 					label2warning.setVisible(true);
-					label2warning.setText("Invalid Input");
+//					label2warning.setText("Invalid Input");
 					t--;
 				}
 				 if(subject.getText()==null || digitchecker(subject.getText()))
 				{
 					label3warning.setForeground(Color.RED);
 					label3warning.setVisible(true);
-					label3warning.setText("Invalid Input");
+//					label3warning.setText("Invalid Input");
 					t--;
 				}
 				if(t==3)					
 				{rec[size][0]=marks.getText();
 				rec[size][1]=name.getText();
 				rec[size][2]=subject.getText();
+				
+				try {
+					ps=con.prepareStatement("INSERT INTO JDBCPRACTICE VALUES(SQ2.nextval,?,?,?)");
+					ps.setString(1,marks.getText());
+					ps.setString(2,name.getText());
+					ps.setString(3,subject.getText());
+					ps.executeUpdate();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				jt.setModel(new DefaultTableModel(rec,col));
+//				JTextArea textarea1 = (JTextArea)jt.getEditorComponent();
+//				   textarea1.setEditable(false);
+				jt.setEnabled(false);
 				size++;
 				System.out.println(rec.length);}
 				}
@@ -183,6 +207,9 @@ JTable jt=new JTable();
 			{
 				Arrays.sort(rec,(a,b)->(a[0].compareTo(b[0])==0?(a[1].compareTo(b[1])==0?a[2].compareTo(b[2]):a[1].compareTo(b[1])):a[0].compareTo(b[0])));
 				jt.setModel(new DefaultTableModel(rec,col));
+				jt.setEnabled(false);
+//				JTextArea textarea1 = (JTextArea)jt.getEditorComponent();
+//				   textarea1.setEditable(false);
 			}
 				});
 		label1.addMouseListener(this);
@@ -217,3 +244,4 @@ public static void main(String args[])
 	recordmanager start=new recordmanager();
 }
 }
+

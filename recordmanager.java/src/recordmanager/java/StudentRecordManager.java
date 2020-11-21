@@ -162,6 +162,7 @@ private static boolean  digitchecker(String s)
 			}
 		});
 		//DELETE ENDS
+		
 		//DISPLAY
 		DELETE.setVisible(false);
 		DISPLAY=new JPanel();
